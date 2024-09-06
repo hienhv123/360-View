@@ -1,0 +1,22 @@
+{
+  "name": "Ambient Weaving ― 環境と織物",
+  "short_name": "Ambient Weaving",
+  "description": "伝統工芸と先端テクノロジーを掛け合わせた機能性テキスタイルの研究開発",
+  "icons": [
+    {
+      "src": "./favicon/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./favicon/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/?standalone=true",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "lang": "ja"
+}
