@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width, shrink-to-fit=no">
+    <title>Panolens.js Slider</title>
+    <style>
+      html, body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        margin: 0;
+        background-color: #fff;
+      }
+
+      #container {
+        width: 100%;
+        height: 100%;
+      }
+
+      /* Button styling */
+      .controls {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        justify-content: space-between;
+        width: 200px;
+      }
+
+      button {
+        width: 80px;
+        height: 40px;
+        background-color: #333;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #555;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="container"></div>
+    
+    <!-- Next and Previous buttons -->
+    <div class="controls">
+      <button id="prevBtn">Previous</button>
+      <button id="nextBtn">Next</button>
+    </div>
+    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/three.js/105/three.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/panolens@0.11.0/build/panolens.min.js"></script>
+
+    <script>
+      var panorama1, panorama2, panorama3, viewer, container;
+      var currentPanoramaIndex = 0; // Keep track of current panorama index
+      var panoramas = []; // Array to hold all panoramas
+
+      // Get the container for the viewer
+      container = document.querySelector('#container');
+
+      // Create three panoramas
+      panorama1 = new PANOLENS.ImagePanorama('https://pchen66.github.io/Panolens/examples/asset/textures/equirectangular/tunnel.jpg');
+      panorama2 = new PANOLENS.ImagePanorama('https://pchen66.github.io/Panolens/examples/asset/textures/equirectangular/sunset.jpg');
+      panorama3 = new PANOLENS.ImagePanorama('https://pchen66.github.io/Panolens/examples/asset/textures/equirectangular/road.jpg');
+
+      // Initialize the Panolens viewer and add panoramas to the array
+      viewer = new PANOLENS.Viewer({ container: container });
+      panoramas.push(panorama1, panorama2, panorama3); // Add panoramas to array
+
+      viewer.add(panorama1, panorama2, panorama3);
+
+      // Function to set panorama based on index
+      function setPanorama(index) {
+        currentPanoramaIndex = index;
+        viewer.setPanorama(panoramas[currentPanoramaIndex]);
+      }
+
+      // Function to go to the next panorama
+      function nextPanorama() {
+        currentPanoramaIndex = (currentPanoramaIndex + 1) % panoramas.length; // Loop to the start if at the end
+        setPanorama(currentPanoramaIndex);
+      }
+
+      // Function to go to the previous panorama
+      function prevPanorama() {
+        currentPanoramaIndex = (currentPanoramaIndex - 1 + panoramas.length) % panoramas.length; // Loop to the end if at the start
+        setPanorama(currentPanoramaIndex);
+      }
+
+      // Add event listeners to the buttons
+      document.getElementById('nextBtn').addEventListener('click', nextPanorama);
+      document.getElementById('prevBtn').addEventListener('click', prevPanorama);
+
+      // Set the initial panorama
+      setPanorama(0); // Start with the first panorama
+    </script>
+  </body>
+</html>
